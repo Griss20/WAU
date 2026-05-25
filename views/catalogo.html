@@ -234,7 +234,28 @@
         </div>
 
         <form class="report-form">
-          <input type="text" placeholder="Nombre referencial de la mascota" required>
+          <input type="text" placeholder="Nombre referencial (opcional)">
+
+          <div class="form-row">
+            <select required>
+              <option value="">Tipo de mascota</option>
+              <option>Perro</option>
+              <option>Gato</option>
+              <option>Otro</option>
+            </select>
+
+            <select required>
+              <option value="">Nivel de urgencia</option>
+              <option>Alta</option>
+              <option>Media</option>
+              <option>Baja</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <input type="text" placeholder="Ubicación exacta" required>
+            <input type="tel" placeholder="Teléfono de contacto" required>
+          </div>
 
           <select required>
             <option value="">Seleccionar estado inicial</option>
@@ -244,7 +265,7 @@
             <option>En recuperación</option>
           </select>
 
-          <textarea placeholder="Describe el caso: ubicación, síntomas, condición y apoyo requerido" required></textarea>
+          <textarea placeholder="Descripción del caso: síntomas, condición y apoyo requerido" required></textarea>
 
           <button type="submit" class="btn-register">Registrar caso</button>
         </form>

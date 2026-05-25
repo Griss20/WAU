@@ -533,6 +533,12 @@ nav a:hover,
   gap: 1rem;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
 .report-form input,
 .report-form select,
 .report-form textarea {
@@ -768,5 +774,9 @@ nav a:hover,
 
   .hero-text h1 {
     font-size: 2.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
