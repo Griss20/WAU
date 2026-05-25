@@ -269,6 +269,87 @@ nav a:hover,
   line-height: 1.6;
 }
 
+/* PROGRESS STEPPER */
+.progress-stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 0 3rem 0;
+  padding: 2.5rem 1rem 1.5rem;
+  background: var(--blanco);
+  border-radius: 20px;
+  box-shadow: var(--sombra);
+  overflow-x: auto;
+}
+
+.progress-stepper::-webkit-scrollbar {
+  height: 6px;
+}
+.progress-stepper::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+  border-radius: 4px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.step.completed, .step.active {
+  opacity: 1;
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: 3px solid #CBD5E1;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  z-index: 2;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.step.completed .step-icon {
+  background: var(--verde-menta-oscuro);
+  border-color: var(--verde-menta-oscuro);
+  color: var(--blanco);
+}
+
+.step.active .step-icon {
+  border-color: var(--amarillo);
+  background: var(--blanco);
+  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.15);
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  text-align: center;
+}
+
+.step-line {
+  flex: 1;
+  height: 4px;
+  background: #E2E8F0;
+  margin-top: 23px;
+  min-width: 30px;
+  border-radius: 2px;
+}
+
+.step-line.completed {
+  background: var(--verde-menta-oscuro);
+}
+
 /* AUTH */
 
 .auth-body {
