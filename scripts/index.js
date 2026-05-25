@@ -3,6 +3,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const petCards = document.querySelectorAll('.pet-card');
   const searchInput = document.getElementById('pet-search');
 
+  // Calcular totales para las tarjetas de resumen
+  const counts = {
+    todos: petCards.length,
+    evaluacion: 0,
+    tratamiento: 0,
+    recuperacion: 0,
+    disponible: 0
+  };
+
+  petCards.forEach(card => {
+    const status = card.getAttribute('data-status');
+    if (counts[status] !== undefined) {
+      counts[status]++;
+    }
+  });
+
+  // Actualizar el DOM con los totales
+  Object.keys(counts).forEach(key => {
+    const el = document.getElementById(`count-${key}`);
+    if (el) {
+      el.textContent = counts[key];
+    }
+  });
+
   let currentFilter = 'todos';
   let searchTerm = '';
 
