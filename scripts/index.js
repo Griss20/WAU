@@ -93,4 +93,63 @@ document.addEventListener('DOMContentLoaded', () => {
       applyFilters();
     });
   }
+
+  // Validación del formulario de reporte
+  const reportForm = document.querySelector('.report-form');
+  if (reportForm) {
+    // Deshabilitar validación nativa del navegador para usar la nuestra
+    reportForm.setAttribute('novalidate', true);
+    
+    // Crear contenedor para los mensajes
+    const msgContainer = document.createElement('div');
+    msgContainer.style.marginTop = '1rem';
+    msgContainer.style.fontWeight = '700';
+    msgContainer.style.fontSize = '0.95rem';
+    msgContainer.style.display = 'none';
+    msgContainer.style.textAlign = 'center';
+    reportForm.appendChild(msgContainer);
+
+    reportForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // Evitar envío automático
+      
+      const requiredFields = reportForm.querySelectorAll('[required]');
+      let isValid = true;
+
+      // Limpiar errores previos
+      requiredFields.forEach(field => field.classList.remove('input-error'));
+
+      // Validar campos vacíos y formato de número
+      requiredFields.forEach(field => {
+        const val = field.value.trim();
+        
+        if (!val) {
+          isValid = false;
+          field.classList.add('input-error');
+        } else if (field.type === 'tel') {
+          // Validar que el teléfono solo contenga números (se permiten espacios)
+          const phoneRegex = /^[0-9\s]+$/;
+          if (!phoneRegex.test(val) || val.replace(/\s/g, '').length < 6) {
+            isValid = false;
+            field.classList.add('input-error');
+          }
+        }
+      });
+
+      if (!isValid) {
+        msgContainer.style.color = '#B42318'; // Rojo error
+        msgContainer.textContent = 'Completa los campos obligatorios y asegúrate de que el teléfono solo tenga números.';
+        msgContainer.style.display = 'block';
+      } else {
+        msgContainer.style.color = '#13795B'; // Verde éxito
+        msgContainer.textContent = '¡Reporte enviado exitosamente! Nuestro equipo lo revisará pronto.';
+        msgContainer.style.display = 'block';
+        
+        // Simular envío y resetear formulario
+        setTimeout(() => {
+          reportForm.reset();
+          msgContainer.style.display = 'none';
+        }, 4000);
+      }
+    });
+  }
 });
