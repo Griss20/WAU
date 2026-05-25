@@ -292,6 +292,36 @@ nav a:hover,
   margin-bottom: 0.3rem;
 }
 
+.catalog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: var(--blanco);
+  border: 1px solid var(--gris-claro);
+  color: var(--azul-oscuro);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  background: #E2E8F0;
+}
+
+.filter-btn.active-filter {
+  background: var(--azul-oscuro);
+  color: var(--blanco);
+  border-color: var(--azul-oscuro);
+}
+
 .pet-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

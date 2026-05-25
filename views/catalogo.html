@@ -56,8 +56,16 @@
         <a href="#reportar" class="cta-button">Reportar mascota</a>
       </div>
 
+      <div class="catalog-filters">
+        <button class="filter-btn active-filter" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="evaluacion">En evaluación</button>
+        <button class="filter-btn" data-filter="tratamiento">En tratamiento</button>
+        <button class="filter-btn" data-filter="recuperacion">En recuperación</button>
+        <button class="filter-btn" data-filter="disponible">Disponible</button>
+      </div>
+
       <div class="pet-grid">
-        <article class="pet-card">
+        <article class="pet-card" data-status="tratamiento">
           <div class="pet-image pet-dog">🐶</div>
 
           <div class="pet-content">
@@ -87,7 +95,7 @@
           </div>
         </article>
 
-        <article class="pet-card">
+        <article class="pet-card" data-status="recuperacion">
           <div class="pet-image pet-cat">🐱</div>
 
           <div class="pet-content">
@@ -116,7 +124,7 @@
           </div>
         </article>
 
-        <article class="pet-card">
+        <article class="pet-card" data-status="disponible">
           <div class="pet-image pet-dog">🐕</div>
 
           <div class="pet-content">
@@ -145,7 +153,7 @@
           </div>
         </article>
 
-        <article class="pet-card">
+        <article class="pet-card" data-status="evaluacion">
           <div class="pet-image pet-dog">🐾</div>
 
           <div class="pet-content">
@@ -207,5 +215,6 @@
       </div>
     </section>
   </main>
+  <script src="../scripts/index.js"></script>
 </body>
 </html>
