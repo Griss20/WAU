@@ -225,6 +225,50 @@ nav a:hover,
   line-height: 1.6;
 }
 
+/* SUPPORT SECTION */
+.support-section {
+  padding: 100px 0;
+  background-color: #FEF7E3;
+}
+
+.support-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.support-card {
+  width: min(320px, 100%);
+  background: var(--blanco);
+  padding: 2.5rem 2rem;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: var(--sombra);
+  transition: transform 0.3s ease;
+}
+
+.support-card:hover {
+  transform: translateY(-8px);
+}
+
+.support-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.support-card h3 {
+  color: var(--azul-oscuro);
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.support-card p {
+  color: #64748B;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 /* AUTH */
 
 .auth-body {
