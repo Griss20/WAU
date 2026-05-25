@@ -977,7 +977,8 @@ nav a:hover,
   .about-container,
   .tracking-header,
   .report-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
     text-align: center;
   }
 
@@ -988,7 +989,9 @@ nav a:hover,
   .catalog-toolbar {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
   }
 
   .pet-grid,
@@ -1001,7 +1004,7 @@ nav a:hover,
   }
 
   .pet-image {
-    min-height: 160px;
+    min-height: 200px;
   }
 
   .catalog-hero h1,
@@ -1025,14 +1028,15 @@ nav a:hover,
   }
 
   nav {
-    gap: 1.2rem;
+    gap: 1rem;
   }
 }
 
 @media (max-width: 600px) {
   .navbar,
   .nav-left {
-    align-items: flex-start;
+    align-items: center;
+    width: 100%;
   }
 
   .nav-left {
@@ -1042,10 +1046,14 @@ nav a:hover,
 
   nav {
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
   }
 
   .pet-header {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .report-card,
@@ -1057,10 +1065,39 @@ nav a:hover,
   }
 
   .hero-text h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+  
+  .catalog-filters {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    flex: 1 1 calc(50% - 0.5rem);
+    text-align: center;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .catalog-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .summary-number {
+    font-size: 2rem;
+  }
+
+  .pet-actions {
+    justify-content: stretch;
+  }
+
+  .pet-actions .btn-primary,
+  .pet-actions .btn-secondary {
+    flex: 1 1 100%;
+    text-align: center;
   }
 }
