@@ -153,6 +153,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Animaciones de scroll suave (Fade-in)
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Agregar clase base a elementos que queremos animar
+  const animateElements = document.querySelectorAll('.workflow-step, .support-card, .testimonial-card, .pet-card, .tracking-summary, .timeline-card, .info-card, .notes-card, .urgent-card');
+  
+  animateElements.forEach((el, index) => {
+    el.classList.add('fade-in-section');
+    // Pequeño delay escalonado para dar efecto cascada a tarjetas adyacentes
+    el.style.transitionDelay = `${(index % 3) * 0.1}s`;
+    observer.observe(el);
+  });
+
   // Botón flotante para volver arriba
   const scrollTopBtn = document.createElement('button');
   scrollTopBtn.innerHTML = '↑';
