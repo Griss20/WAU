@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const petCards = document.querySelectorAll('.pet-card');
   const searchInput = document.getElementById('pet-search');
+  const visibleCountEl = document.getElementById('visible-count');
 
   // Calcular totales para las tarjetas de resumen
   const counts = {
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchTerm = '';
 
   const applyFilters = () => {
+    let visibleCards = 0;
+
     petCards.forEach(card => {
       // Extraemos el contenido de texto para la búsqueda
       const textContent = card.textContent.toLowerCase();
@@ -43,11 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // Aplicar visualización basada en ambos filtros
       if (matchesSearch && matchesFilter) {
         card.style.display = 'grid'; // .pet-card usa display: grid
+        visibleCards++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    // Actualizar el contador de resultados
+    if (visibleCountEl) {
+      visibleCountEl.textContent = visibleCards;
+    }
   };
+
+  // Inicializar el contador al cargar la página
+  if (visibleCountEl) {
+    visibleCountEl.textContent = petCards.length;
+  }
 
   if (filterBtns.length > 0 && petCards.length > 0) {
     filterBtns.forEach(btn => {
