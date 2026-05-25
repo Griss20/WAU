@@ -110,7 +110,36 @@
           </div>
         </div>
 
-        <a href="#contact-form" class="btn-primary" style="background: var(--verde-menta-oscuro); color: var(--blanco); font-size: 1.1rem; padding: 1rem 2rem;">Quiero postular mi hogar</a>
+        <form id="foster-form" class="report-form" novalidate style="background: var(--blanco); padding: 2rem; border-radius: 20px; text-align: left; margin-top: 1.5rem; border: 1px solid rgba(19, 121, 91, 0.2);">
+          <h3 style="color: var(--azul-oscuro); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">Formulario de Postulación Rápida</h3>
+          
+          <div class="form-row">
+            <input type="text" placeholder="Nombre completo" required name="foster-nombre">
+            <input type="tel" placeholder="Teléfono / WhatsApp" required name="foster-telefono">
+          </div>
+
+          <div class="form-row">
+            <input type="text" placeholder="Distrito o Zona" required name="foster-distrito">
+            <select required name="foster-tipo">
+              <option value="">¿Qué mascota puedes recibir?</option>
+              <option value="perros">Perros (Adultos/Jóvenes)</option>
+              <option value="cachorros">Cachorros</option>
+              <option value="gatos">Gatos</option>
+              <option value="gatitos">Gatitos bebé</option>
+              <option value="cualquiera">Cualquiera</option>
+            </select>
+          </div>
+
+          <select required name="foster-disponibilidad">
+            <option value="">Disponibilidad de tiempo (aproximada)</option>
+            <option value="dias">Unos pocos días (emergencia)</option>
+            <option value="semanas">1 a 3 semanas</option>
+            <option value="mes">1 mes o más</option>
+            <option value="indefinido">Hasta que sea adoptado</option>
+          </select>
+
+          <button type="submit" class="btn-primary" style="background: var(--verde-menta-oscuro); color: var(--blanco); font-size: 1.1rem; padding: 1rem; width: 100%; border: none; cursor: pointer; border-radius: 15px; margin-top: 0.5rem;">Enviar Postulación</button>
+        </form>
       </div>
     </section>
   </main>
@@ -165,6 +194,55 @@
             setTimeout(() => {
               contactForm.reset();
               msgContainer.style.display = 'none';
+            }, 5000);
+          }
+        });
+      }
+
+      // Validacion para el formulario de hogar temporal
+      const fosterForm = document.getElementById('foster-form');
+      if (fosterForm) {
+        const msgContainer2 = document.createElement('div');
+        msgContainer2.style.marginTop = '1rem';
+        msgContainer2.style.fontWeight = '700';
+        msgContainer2.style.fontSize = '0.95rem';
+        msgContainer2.style.display = 'none';
+        msgContainer2.style.textAlign = 'center';
+        fosterForm.appendChild(msgContainer2);
+
+        fosterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const requiredFields = fosterForm.querySelectorAll('[required]');
+          let isValid = true;
+
+          requiredFields.forEach(field => field.classList.remove('input-error'));
+
+          requiredFields.forEach(field => {
+            const val = field.value.trim();
+            if (!val) {
+              isValid = false;
+              field.classList.add('input-error');
+            } else if (field.type === 'tel') {
+              const phoneRegex = /^[0-9\s\+]+$/;
+              if (!phoneRegex.test(val) || val.replace(/\s/g, '').length < 6) {
+                isValid = false;
+                field.classList.add('input-error');
+              }
+            }
+          });
+
+          if (!isValid) {
+            msgContainer2.style.color = '#B42318';
+            msgContainer2.textContent = 'Por favor, completa todos los campos.';
+            msgContainer2.style.display = 'block';
+          } else {
+            msgContainer2.style.color = '#13795B';
+            msgContainer2.textContent = '¡Excelente! Tu postulación como hogar temporal fue enviada con éxito.';
+            msgContainer2.style.display = 'block';
+            setTimeout(() => {
+              fosterForm.reset();
+              msgContainer2.style.display = 'none';
             }, 5000);
           }
         });
