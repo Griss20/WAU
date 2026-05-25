@@ -1,11 +1,31 @@
+/**
+ * WAU Piura - Scripts principales
+ * Organizado por responsabilidades: Filtros, Búsqueda, Validaciones y Eventos UI.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
+  initCatalogFilters();
+  initFormValidation('.report-form');
+  initScrollAnimations();
+  initScrollTopButton();
+});
+
+// ==========================================
+// 1. FILTROS Y BÚSQUEDA (Catálogo)
+// ==========================================
+function initCatalogFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const petCards = document.querySelectorAll('.pet-card');
   const searchInput = document.getElementById('pet-search');
   const visibleCountEl = document.getElementById('visible-count');
   const noResultsEl = document.getElementById('no-results');
 
-  // Calcular totales para las tarjetas de resumen
+  if (petCards.length === 0) return; // Si no estamos en el catálogo o no hay tarjetas
+
+  let currentFilter = 'todos';
+  let searchTerm = '';
+
+  // Calcular totales para tarjetas resumen
   const counts = {
     todos: petCards.length,
     evaluacion: 0,
@@ -24,27 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Actualizar el DOM con los totales
   Object.keys(counts).forEach(key => {
     const el = document.getElementById(`count-${key}`);
-    if (el) {
-      el.textContent = counts[key];
-    }
+    if (el) el.textContent = counts[key];
   });
 
-  let currentFilter = 'todos';
-  let searchTerm = '';
+  if (visibleCountEl) visibleCountEl.textContent = petCards.length;
 
   const applyFilters = () => {
     let visibleCards = 0;
 
     petCards.forEach(card => {
-      // Extraemos el contenido de texto para la búsqueda
+      // Búsqueda por texto (nombre, raza, estado)
       const textContent = card.textContent.toLowerCase();
       const matchesSearch = textContent.includes(searchTerm);
       
-      // Obtenemos el estado para el filtro de botones
+      // Filtro por estado
       const status = card.getAttribute('data-status');
       const matchesFilter = (currentFilter === 'todos') || (status === currentFilter);
 
-      // Aplicar visualización basada en ambos filtros
+      // Mostrar u ocultar la tarjeta
       if (matchesSearch && matchesFilter) {
         card.style.display = 'grid'; // .pet-card usa display: grid
         visibleCards++;
@@ -53,107 +70,100 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Actualizar el contador de resultados
-    if (visibleCountEl) {
-      visibleCountEl.textContent = visibleCards;
-    }
-
-    // Mostrar u ocultar mensaje de "sin resultados"
+    if (visibleCountEl) visibleCountEl.textContent = visibleCards;
+    
     if (noResultsEl) {
-      if (visibleCards === 0) {
-        noResultsEl.style.display = 'block';
-      } else {
-        noResultsEl.style.display = 'none';
-      }
+      noResultsEl.style.display = (visibleCards === 0) ? 'block' : 'none';
     }
   };
 
-  // Inicializar el contador al cargar la página
-  if (visibleCountEl) {
-    visibleCountEl.textContent = petCards.length;
-  }
-
-  if (filterBtns.length > 0 && petCards.length > 0) {
+  // Eventos de botones de filtro
+  if (filterBtns.length > 0) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Remover clase activa de todos los botones
         filterBtns.forEach(b => b.classList.remove('active-filter'));
-        // Agregar clase activa al botón clickeado
         btn.classList.add('active-filter');
-
+        
         currentFilter = btn.getAttribute('data-filter');
         applyFilters();
       });
     });
   }
 
+  // Evento de caja de búsqueda
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchTerm = e.target.value.toLowerCase();
       applyFilters();
     });
   }
+}
 
-  // Validación del formulario de reporte
-  const reportForm = document.querySelector('.report-form');
-  if (reportForm) {
-    // Deshabilitar validación nativa del navegador para usar la nuestra
-    reportForm.setAttribute('novalidate', true);
+// ==========================================
+// 2. VALIDACIONES DE FORMULARIOS
+// ==========================================
+function initFormValidation(selector) {
+  const form = document.querySelector(selector);
+  if (!form) return;
+
+  // Deshabilitar validación nativa del navegador
+  form.setAttribute('novalidate', true);
+  
+  // Contenedor para mensajes de estado
+  const msgContainer = document.createElement('div');
+  msgContainer.style.marginTop = '1rem';
+  msgContainer.style.fontWeight = '700';
+  msgContainer.style.fontSize = '0.95rem';
+  msgContainer.style.display = 'none';
+  msgContainer.style.textAlign = 'center';
+  form.appendChild(msgContainer);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
     
-    // Crear contenedor para los mensajes
-    const msgContainer = document.createElement('div');
-    msgContainer.style.marginTop = '1rem';
-    msgContainer.style.fontWeight = '700';
-    msgContainer.style.fontSize = '0.95rem';
-    msgContainer.style.display = 'none';
-    msgContainer.style.textAlign = 'center';
-    reportForm.appendChild(msgContainer);
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
 
-    reportForm.addEventListener('submit', (e) => {
-      e.preventDefault(); // Evitar envío automático
+    // Limpiar errores visuales previos
+    requiredFields.forEach(field => field.classList.remove('input-error'));
+
+    requiredFields.forEach(field => {
+      const val = field.value.trim();
       
-      const requiredFields = reportForm.querySelectorAll('[required]');
-      let isValid = true;
-
-      // Limpiar errores previos
-      requiredFields.forEach(field => field.classList.remove('input-error'));
-
-      // Validar campos vacíos y formato de número
-      requiredFields.forEach(field => {
-        const val = field.value.trim();
-        
-        if (!val) {
+      if (!val) {
+        isValid = false;
+        field.classList.add('input-error');
+      } else if (field.type === 'tel') {
+        const phoneRegex = /^[0-9\s]+$/;
+        if (!phoneRegex.test(val) || val.replace(/\s/g, '').length < 6) {
           isValid = false;
           field.classList.add('input-error');
-        } else if (field.type === 'tel') {
-          // Validar que el teléfono solo contenga números (se permiten espacios)
-          const phoneRegex = /^[0-9\s]+$/;
-          if (!phoneRegex.test(val) || val.replace(/\s/g, '').length < 6) {
-            isValid = false;
-            field.classList.add('input-error');
-          }
         }
-      });
-
-      if (!isValid) {
-        msgContainer.style.color = '#B42318'; // Rojo error
-        msgContainer.textContent = 'Completa los campos obligatorios y asegúrate de que el teléfono solo tenga números.';
-        msgContainer.style.display = 'block';
-      } else {
-        msgContainer.style.color = '#13795B'; // Verde éxito
-        msgContainer.textContent = '¡Reporte enviado exitosamente! Nuestro equipo lo revisará pronto.';
-        msgContainer.style.display = 'block';
-        
-        // Simular envío y resetear formulario
-        setTimeout(() => {
-          reportForm.reset();
-          msgContainer.style.display = 'none';
-        }, 4000);
       }
     });
-  }
 
-  // Animaciones de scroll suave (Fade-in)
+    if (!isValid) {
+      msgContainer.style.color = '#B42318';
+      msgContainer.textContent = 'Completa los campos obligatorios y asegúrate de que el teléfono solo tenga números.';
+      msgContainer.style.display = 'block';
+    } else {
+      msgContainer.style.color = '#13795B';
+      msgContainer.textContent = '¡Enviado exitosamente! Nuestro equipo lo revisará pronto.';
+      msgContainer.style.display = 'block';
+      
+      // Simular envío y resetear
+      setTimeout(() => {
+        form.reset();
+        msgContainer.style.display = 'none';
+      }, 4000);
+    }
+  });
+}
+
+// ==========================================
+// 3. ANIMACIONES DE SCROLL (Observer)
+// ==========================================
+function initScrollAnimations() {
   const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -169,23 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Agregar clase base a elementos que queremos animar
   const animateElements = document.querySelectorAll('.workflow-step, .support-card, .testimonial-card, .pet-card, .tracking-summary, .timeline-card, .info-card, .notes-card, .urgent-card');
   
   animateElements.forEach((el, index) => {
     el.classList.add('fade-in-section');
-    // Pequeño delay escalonado para dar efecto cascada a tarjetas adyacentes
+    // Retraso escalonado para dar efecto cascada
     el.style.transitionDelay = `${(index % 3) * 0.1}s`;
     observer.observe(el);
   });
+}
 
-  // Botón flotante para volver arriba
+// ==========================================
+// 4. EVENTOS DE INTERFAZ (UI)
+// ==========================================
+function initScrollTopButton() {
   const scrollTopBtn = document.createElement('button');
   scrollTopBtn.innerHTML = '↑';
   scrollTopBtn.className = 'scroll-top-btn';
   scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
   document.body.appendChild(scrollTopBtn);
 
+  // Aparecer después de 300px
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
       scrollTopBtn.classList.add('visible');
@@ -194,7 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Ir arriba fluidamente
   scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-});
+}
