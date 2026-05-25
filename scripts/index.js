@@ -152,4 +152,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Botón flotante para volver arriba
+  const scrollTopBtn = document.createElement('button');
+  scrollTopBtn.innerHTML = '↑';
+  scrollTopBtn.className = 'scroll-top-btn';
+  scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
+  document.body.appendChild(scrollTopBtn);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
