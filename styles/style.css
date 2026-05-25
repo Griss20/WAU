@@ -251,6 +251,51 @@ nav a:hover,
   box-shadow: var(--sombra);
 }
 
+.urgent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.urgent-card {
+  background: var(--blanco);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(180, 35, 24, 0.08);
+  border: 1px solid rgba(180, 35, 24, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.urgent-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(180, 35, 24, 0.12);
+}
+
+.urgent-image {
+  background: #FFE3E3;
+  height: 160px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.urgent-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #B42318;
+  color: var(--blanco);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+.urgent-content {
+  padding: 1.5rem;
+}
+
 .workflow-section {
   padding: 100px 0;
   background-color: var(--blanco);
