@@ -317,7 +317,7 @@ nav a:hover,
 }
 
 .urgent-cases-section {
-  margin-top: -60px;
+  padding-top: 80px;
   margin-bottom: 80px;
   position: relative;
   z-index: 10;
