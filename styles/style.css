@@ -381,6 +381,27 @@ nav a:hover,
   gap: 2rem;
 }
 
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--blanco);
+  border-radius: 28px;
+  box-shadow: var(--sombra);
+  margin-top: 1rem;
+  border: 1px dashed rgba(27, 58, 88, 0.2);
+}
+
+.no-results h3 {
+  font-size: 1.5rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  color: #64748B;
+  font-size: 1rem;
+}
+
 .pet-card {
   background: var(--blanco);
   border-radius: 28px;

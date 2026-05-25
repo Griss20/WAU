@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const petCards = document.querySelectorAll('.pet-card');
   const searchInput = document.getElementById('pet-search');
   const visibleCountEl = document.getElementById('visible-count');
+  const noResultsEl = document.getElementById('no-results');
 
   // Calcular totales para las tarjetas de resumen
   const counts = {
@@ -55,6 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Actualizar el contador de resultados
     if (visibleCountEl) {
       visibleCountEl.textContent = visibleCards;
+    }
+
+    // Mostrar u ocultar mensaje de "sin resultados"
+    if (noResultsEl) {
+      if (visibleCards === 0) {
+        noResultsEl.style.display = 'block';
+      } else {
+        noResultsEl.style.display = 'none';
+      }
     }
   };
 
