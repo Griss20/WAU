@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contáctanos para ser voluntario, apoyar rescates o brindar un hogar temporal en WauPiura.">
+  <title>Contacto y Voluntariado | WauPiura</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="nav-left">
+        <a href="index.html" class="logo"><span>Wau</span>Piura</a>
+        <nav>
+          <a href="index.html">Inicio</a>
+          <a href="catalogo.html">Adopción</a>
+          <a href="requisitos.html">Requisitos</a>
+          <a href="nosotros.html">Nosotros</a>
+          <a href="contacto.html" class="active-link">Contacto</a>
+        </nav>
+      </div>
+      <div class="nav-auth">
+        <a href="iniciar-sesion.html" class="btn-login">Iniciar Sesión</a>
+        <a href="registro.html" class="btn-register">Registrarse</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container" style="padding: 80px 0;">
+      <div class="report-card" style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
+        
+        <div>
+          <p class="eyebrow">Únete al equipo</p>
+          <h1 style="font-size: 2.5rem; color: var(--azul-oscuro); margin-bottom: 1.5rem; line-height: 1.2;">Necesitamos manos como las tuyas</h1>
+          <p style="color: #64748B; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem;">
+            En WauPiura siempre necesitamos personas dispuestas a ayudar. Ya sea que quieras ser voluntario presencial, apoyar logísticamente en labores de rescate o brindar un hogar temporal para un peludito en recuperación.
+          </p>
+          
+          <ul style="list-style: none; padding: 0; display: grid; gap: 1.5rem; margin-bottom: 2rem;">
+            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+              <span style="font-size: 1.5rem; background: #E9F5EF; padding: 0.8rem; border-radius: 12px; line-height: 1;">🤝</span>
+              <div>
+                <h4 style="color: var(--azul-oscuro); margin-bottom: 0.3rem;">Voluntariado general</h4>
+                <p style="color: #64748B; font-size: 0.95rem;">Ayúdanos en eventos, paseos, baño de mascotas y mantenimiento básico.</p>
+              </div>
+            </li>
+            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+              <span style="font-size: 1.5rem; background: #FEF7E3; padding: 0.8rem; border-radius: 12px; line-height: 1;">🚑</span>
+              <div>
+                <h4 style="color: var(--azul-oscuro); margin-bottom: 0.3rem;">Apoyo en rescates</h4>
+                <p style="color: #64748B; font-size: 0.95rem;">Soporte con transporte (movilidad) para emergencias y traslados.</p>
+              </div>
+            </li>
+            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+              <span style="font-size: 1.5rem; background: #E9F5EF; padding: 0.8rem; border-radius: 12px; line-height: 1;">🏠</span>
+              <div>
+                <h4 style="color: var(--azul-oscuro); margin-bottom: 0.3rem;">Hogar temporal</h4>
+                <p style="color: #64748B; font-size: 0.95rem;">Cuida a una mascota recuperada o cachorros hasta que encuentren a su familia.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="report-form" id="contact-form" novalidate style="background: var(--blanco); padding: 2.5rem; border-radius: 25px; box-shadow: var(--sombra);">
+          <h3 style="color: var(--azul-oscuro); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: center;">Déjanos tus datos</h3>
+          
+          <input type="text" placeholder="Nombre completo" required name="nombre">
+          
+          <div class="form-row">
+            <input type="email" placeholder="Correo electrónico" required name="correo">
+            <input type="tel" placeholder="Teléfono / WhatsApp" required name="telefono">
+          </div>
+
+          <select required name="interes">
+            <option value="">¿Cómo te gustaría ayudar?</option>
+            <option value="voluntariado">Quiero ser voluntario(a)</option>
+            <option value="rescates">Quiero apoyar en rescates</option>
+            <option value="temporal">Puedo ser hogar temporal</option>
+            <option value="otro">Otra forma de ayuda</option>
+          </select>
+
+          <textarea placeholder="Cuéntanos un poco sobre ti, tu motivación y tu disponibilidad (días u horarios)" required name="mensaje" style="height: 120px;"></textarea>
+
+          <button type="submit" class="btn-register" style="width: 100%; margin-top: 0.5rem;">Enviar solicitud</button>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        const msgContainer = document.createElement('div');
+        msgContainer.style.marginTop = '1rem';
+        msgContainer.style.fontWeight = '700';
+        msgContainer.style.fontSize = '0.95rem';
+        msgContainer.style.display = 'none';
+        msgContainer.style.textAlign = 'center';
+        contactForm.appendChild(msgContainer);
+
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const requiredFields = contactForm.querySelectorAll('[required]');
+          let isValid = true;
+
+          requiredFields.forEach(field => field.classList.remove('input-error'));
+
+          requiredFields.forEach(field => {
+            const val = field.value.trim();
+            if (!val) {
+              isValid = false;
+              field.classList.add('input-error');
+            } else if (field.type === 'tel') {
+              const phoneRegex = /^[0-9\s\+]+$/;
+              if (!phoneRegex.test(val) || val.replace(/\s/g, '').length < 6) {
+                isValid = false;
+                field.classList.add('input-error');
+              }
+            } else if (field.type === 'email') {
+              if (!val.includes('@')) {
+                isValid = false;
+                field.classList.add('input-error');
+              }
+            }
+          });
+
+          if (!isValid) {
+            msgContainer.style.color = '#B42318';
+            msgContainer.textContent = 'Por favor, revisa los campos marcados en rojo.';
+            msgContainer.style.display = 'block';
+          } else {
+            msgContainer.style.color = '#13795B';
+            msgContainer.textContent = '¡Gracias por sumarte! Te contactaremos por WhatsApp o correo muy pronto.';
+            msgContainer.style.display = 'block';
+            setTimeout(() => {
+              contactForm.reset();
+              msgContainer.style.display = 'none';
+            }, 5000);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
