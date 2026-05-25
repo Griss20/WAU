@@ -292,6 +292,26 @@ nav a:hover,
   margin-bottom: 0.3rem;
 }
 
+.catalog-search {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid var(--gris-claro);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--amarillo-suave);
+}
+
 .catalog-filters {
   display: flex;
   flex-wrap: wrap;
