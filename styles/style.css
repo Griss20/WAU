@@ -146,6 +146,85 @@ nav a:hover,
   box-shadow: var(--sombra);
 }
 
+/* WORKFLOW */
+.workflow-section {
+  padding: 100px 0;
+  background-color: var(--blanco);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+  max-width: 650px;
+  margin-inline: auto;
+}
+
+.section-header h2 {
+  font-size: 2.8rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.workflow-step {
+  background: #F7FAFC;
+  padding: 2.5rem 2rem;
+  border-radius: 25px;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(27, 58, 88, 0.05);
+}
+
+.workflow-step:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra);
+  background: var(--blanco);
+  border-color: rgba(27, 58, 88, 0.1);
+}
+
+.step-number {
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  background: var(--verde-menta-oscuro);
+  color: var(--blanco);
+  font-weight: 900;
+  font-size: 1.2rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 15px rgba(119, 201, 167, 0.5);
+}
+
+.step-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.workflow-step h3 {
+  font-size: 1.4rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 0.8rem;
+}
+
+.workflow-step p {
+  color: #64748B;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 /* AUTH */
 
 .auth-body {
